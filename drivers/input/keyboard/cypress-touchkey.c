@@ -68,6 +68,7 @@ struct cypress_touchkey_devdata *bl_devdata;
 static int bl_timeout = 1600; // This gets overridden by userspace AriesParts
 static struct timer_list bl_timer;
 static void bl_off(struct work_struct *bl_off_work);
+static void bl_set_timeout(void);
 static DECLARE_WORK(bl_off_work, bl_off);
 
 struct cypress_touchkey_devdata {
@@ -163,7 +164,8 @@ void bl_timer_callback(unsigned long data)
 	schedule_work(&bl_off_work);
 }
 
-static void bl_set_timeout() {
+static void bl_set_timeout()
+{
 	if (bl_timeout > 0) {
 		mod_timer(&bl_timer, jiffies + msecs_to_jiffies(bl_timeout));
 	}
