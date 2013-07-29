@@ -1608,9 +1608,12 @@ static struct clk *clks[] __initdata = {
 
 void __init s5pv210_register_clocks(void)
 {
+	int ret;
 	int ptr;
 
-	s3c24xx_register_clocks(clks, ARRAY_SIZE(clks));
+	ret = s3c24xx_register_clocks(clks, ARRAY_SIZE(clks));
+	if (ret > 0)
+		printk(KERN_ERR "Failed to register %u clocks\n", ret);
 
 	for (ptr = 0; ptr < ARRAY_SIZE(sysclks); ptr++)
 		s3c_register_clksrc(sysclks[ptr], 1);
