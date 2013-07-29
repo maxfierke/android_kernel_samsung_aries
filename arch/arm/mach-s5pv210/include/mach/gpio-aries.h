@@ -112,7 +112,7 @@
 #define GPIO_FM_SCL_28V_AF		2
 
 #define GPIO_TSP_SDA_28V		S5PV210_GPD1(4)
-#define GPIO_TSP_SDA_28V_AF		2	
+#define GPIO_TSP_SDA_28V_AF		2
 
 #define GPIO_TSP_SCL_28V		S5PV210_GPD1(5)
 #define GPIO_TSP_SCL_28V_AF		2
@@ -296,7 +296,7 @@
 #define GPIO_T_FLASH_D0_AF		2
 
 #define GPIO_T_FLASH_D1         S5PV210_GPG2(4)
-#define GPIO_T_FLASH_D1_AF		2	
+#define GPIO_T_FLASH_D1_AF		2
 
 #define GPIO_T_FLASH_D2         S5PV210_GPG2(5)
 #define GPIO_T_FLASH_D2_AF		2
@@ -388,10 +388,15 @@
 #define GPIO_KBC1				S5PV210_GPH2(1)
 #define GPIO_KBC1_AF			3
 
-#if defined(CONFIG_SAMSUNG_CAPTIVATE)  || defined (CONFIG_SAMSUNG_VIBRANT) || defined(CONFIG_SAMSUNG_GALAXYS4G)
+#if defined(CONFIG_SAMSUNG_CAPTIVATE)  || defined (CONFIG_SAMSUNG_VIBRANT)
 #define GPIO_EAR_SEND_END35     S5PV210_GPH2(2)
 #define GPIO_EAR_SEND_END35_AF  0xFF
 #else
+#if defined(CONFIG_SAMSUNG_GALAXYS4G)
+/* GalaxyS4G defines both on the same pin */
+#define GPIO_EAR_SEND_END35     S5PV210_GPH2(2)
+#define GPIO_EAR_SEND_END35_AF  0xFF
+#endif
 #define GPIO_KBC2				S5PV210_GPH2(2)
 #define GPIO_KBC2_AF			3
 #endif
@@ -517,7 +522,11 @@
 
 #define GPIO_FM_INT				S5PV210_GPJ2(4)
 
-#if !(defined(CONFIG_SAMSUNG_VIBRANT) || defined(CONFIG_SAMSUNG_GALAXYS4G))
+#if !defined(CONFIG_SAMSUNG_VIBRANT)
+#if defined(CONFIG_SAMSUNG_GALAXYS4G)
+/* GalaxyS4G defines both on the same pin */
+#define GPIO_MICBIAS_EN2		S5PV210_GPJ2(5) //SGH-T959 REV0.5(HWREV = 0x0e) or 0.6 (HWREV = 0x0f)
+#endif
 #define GPIO_FM_RST				S5PV210_GPJ2(5)
 #else
 #define GPIO_MICBIAS_EN2		S5PV210_GPJ2(5) //SGH-T959 REV0.5(HWREV = 0x0e) or 0.6 (HWREV = 0x0f)
@@ -551,10 +560,14 @@
 
 #define GPIO_AP_PMIC_SCL		S5PV210_GPJ4(3)
 
-#if defined(CONFIG_SAMSUNG_CAPTIVATE) || defined(CONFIG_SAMSUNG_GALAXYS4G)
+#if defined(CONFIG_SAMSUNG_CAPTIVATE)
 #define GPIO_EAR_MICBIAS_EN		S5PV210_GPJ4(4)
 #else
 #define GPIO_TV_EN				S5PV210_GPJ4(4)
+#if defined(CONFIG_SAMSUNG_GALAXYS4G)
+/* GalaxyS4G defines both on the same pin */
+#define GPIO_EAR_MICBIAS_EN			S5PV210_GPJ4(4)
+#endif
 #endif
 
 #define GPIO_MP010			S5PV210_MP01(0)
