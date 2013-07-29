@@ -260,7 +260,11 @@ static struct s3c2410_uartcfg aries_uartcfgs[] __initdata = {
 		.flags		= 0,
 		.ucon		= S5PV210_UCON_DEFAULT,
 		.ulcon		= S5PV210_ULCON_DEFAULT,
+#if defined(CONFIG_SAMSUNG_GALAXYS4G)
+		.ufcon           = S3C2410_UFCON_FIFOMODE | S5PV210_UFCON_TXTRIG64 | S5PV210_UFCON_RXTRIG1, // -> RX trigger leve : 8byte.
+#else
 		.ufcon		= S5PV210_UFCON_DEFAULT,
+#endif
 	},
 #ifndef CONFIG_FIQ_DEBUGGER
 	{
